@@ -8,6 +8,12 @@ app.use(async (ctx, next) => {
   console.log('Middleware!');
   await next();
 });
+app.use(async (ctx, next) => {
+  ctx.response.headers.set('Access-Control-Allow-Origin', '*');
+  ctx.response.headers.set('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+  ctx.response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authentication');
+  await next();
+});
 
 app.use(todosRoutes.routes());
 app.use(todosRoutes.allowedMethods());
